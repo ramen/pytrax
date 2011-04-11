@@ -58,8 +58,6 @@ def parse(file,
     if with_samples:     info['samples']     = _get_samples(file, smpoffs)
     if with_patterns:    info['patterns']    = _get_patterns(file, patoffs)
     
-    file.close()
-    
     return info
 
 def _get_version(byte):

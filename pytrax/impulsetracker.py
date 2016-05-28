@@ -57,6 +57,10 @@ def parse(file,
     if with_instruments: info['instruments'] = _get_instruments(file, insoffs)
     if with_samples:     info['samples']     = _get_samples(file, smpoffs)
     if with_patterns:    info['patterns']    = _get_patterns(file, patoffs)
+
+    # add sample data to samples
+    if not info['instruments']:
+        _load_sample_data(file, info['samples'])
     
     return info
 
@@ -120,6 +124,12 @@ def _get_samples(file, offs):
         })
     
     return result
+
+def _load_sample_data(file, samples):
+    for s in samples:
+        file.seek(s['offset'])
+        s['sampledata'] = file.read(s['length'])
+    return samples
 
 def _get_patterns(file, offs):
     result = []

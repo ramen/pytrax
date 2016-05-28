@@ -3,10 +3,10 @@
 
 import struct
 
-IT_HEADER     = '4x26s2x8H5BxHL4x128B'
-IT_HEADER_INS = '4x12sx3BH6BHBx26s6x120H'
-IT_HEADER_SMP = '4x12sx3B26s2B7L4B'
-IT_HEADER_PAT = '2H4x'
+IT_HEADER     = '<4x26s2x8H5BxHL4x128B'
+IT_HEADER_INS = '<4x12sx3BH6BHBx26s6x120H'
+IT_HEADER_SMP = '<4x12sx3B26s2B7L4B'
+IT_HEADER_PAT = '<2H4x'
 
 def parse_file(filename,
                with_instruments=False,
@@ -42,12 +42,12 @@ def parse(file,
         'pansep':    data[13],
         'pantable':  data[16:80],
         'voltable':  data[80:144],
-        'orders':    struct.unpack('%dB' % data[1], file.read(data[1])),
+        'orders':    struct.unpack('<%dB' % data[1], file.read(data[1])),
     }
-       
-    insoffs = struct.unpack('%dL' % data[2], file.read(data[2] * 4))
-    smpoffs = struct.unpack('%dL' % data[3], file.read(data[3] * 4))
-    patoffs = struct.unpack('%dL' % data[4], file.read(data[4] * 4))
+    
+    insoffs = struct.unpack('<%dL' % data[2], file.read(data[2] * 4))
+    smpoffs = struct.unpack('<%dL' % data[3], file.read(data[3] * 4))
+    patoffs = struct.unpack('<%dL' % data[4], file.read(data[4] * 4))
 
     info['message'] = ''
     if data[8] & 0x01:

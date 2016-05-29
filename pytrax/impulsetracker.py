@@ -59,7 +59,7 @@ def parse(file,
     if with_patterns:    info['patterns']    = _get_patterns(file, patoffs)
 
     # add sample data to samples
-    if not info['instruments']:
+    if not (info.has_key('instruments') and info["instruments"]) and with_samples:
         _load_sample_data(file, info['samples'])
     
     return info

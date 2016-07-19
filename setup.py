@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='pytrax',
-            version='0.1',
+            version='0.2',
             description='Impulse Tracker parser',
             author='Dave Benjamin',
             author_email='dave@ramenlabs.com',

@@ -128,7 +128,8 @@ def _get_samples(file, offs):
 def _load_sample_data(file, samples):
     for s in samples:
         file.seek(s['offset'])
-        s['sampledata'] = file.read(s['length'])
+        s['bytes'] = ((s["flags"] | 0x2) >> 1) + 1
+        s['sampledata'] = file.read(s['length'] * s["bytes"])
     return samples
 
 def _get_patterns(file, offs):
